@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://6c33c61kid0x"]
+
+[ext_resource type="Script" path="res://Scripts/Hand.gd" id="1_pbub0"]
+[ext_resource type="AudioStream" uid="uid://ypxrxplpln7s" path="res://audio/phaseJump5.mp3" id="2_xqxrm"]
+[ext_resource type="Material" uid="uid://omanjsarmoiq" path="res://Materials/HandValidMaterial.tres" id="3_i6xqj"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_fvbwa"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_70bbk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8a1m6"]
+
+[node name="Hand" type="CSGMesh3D"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+use_collision = true
+collision_layer = 2
+mesh = SubResource("BoxMesh_fvbwa")
+script = ExtResource("1_pbub0")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04149, 0)
+visible = false
+modulate = Color(1, 0, 1, 1)
+text = "test"
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 3
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_70bbk")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_xqxrm")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1.19249e-08, -5.21253e-16, 1, -1, 4.37114e-08, 1.19249e-08, 0, 0, 0)
+target_position = Vector3(45, 0, 0)
+collision_mask = 8
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false
+debug_shape_custom_color = Color(1, 0, 0, 1)
+debug_shape_thickness = 5
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="RayCast3D"]
+transform = Transform3D(-40.9807, -1.74846e-08, 1.74846e-08, 3.58264e-06, -0.2, 1.27055e-21, -3.58265e-06, -1.52855e-15, -0.2, 21.0453, -9.19917e-07, -2.50963e-07)
+mesh = SubResource("BoxMesh_8a1m6")
+material = ExtResource("3_i6xqj")
+
+[node name="RaycastTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="timeout" from="RaycastTimer" to="." method="_on_raycast_timer_timeout"]

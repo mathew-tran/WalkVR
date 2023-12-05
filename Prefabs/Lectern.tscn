@@ -1,0 +1,297 @@
+[gd_scene load_steps=11 format=3 uid="uid://dh46vkrolx2dg"]
+
+[ext_resource type="Script" path="res://Scripts/Lectern.gd" id="1_5t225"]
+[ext_resource type="Script" path="res://Scripts/RandomizeButton.gd" id="2_vrwkr"]
+[ext_resource type="Script" path="res://Scripts/SetQuestAmount.gd" id="3_q5r3h"]
+[ext_resource type="Script" path="res://Scripts/ToggleMusic.gd" id="4_7wcj5"]
+[ext_resource type="Script" path="res://Prefabs/SetEnvironment.gd" id="5_l8yea"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_f7mrs"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_akwfq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ygopn"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_27dcw"]
+size = Vector3(1.3423, 1, 1.4819)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nx74o"]
+
+[node name="Lectern" type="Node3D"]
+script = ExtResource("1_5t225")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 0.494154, -1.73875, 0, 0.869374, 0.988309, 0, 0.761636, -0.178476)
+mesh = SubResource("BoxMesh_f7mrs")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.494154, -0.869374, 0, 0.869374, 0.494154, 0, 0.781135, -0.144171)
+
+[node name="Label3D" type="Label3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, -2.98023e-08, 1, 0, -1, -2.98023e-08, -1.39838, 0.51882, -0.905946)
+text = "Welcome to Ferngrove!
+
+Can you find all the items in town?
+
+
+
+
+
+
+
+
+
+
+
+
+CREDITS
+<Game Design & Programming>
+Mathew Tran
+
+<3D Models>
+Kenney.nl
+
+<Music>
+Caketown - Matthew Pablo
+[https://opengameart.org/content/caketown-cuteplayful]"
+font_size = 10
+horizontal_alignment = 0
+vertical_alignment = 0
+autowrap_mode = 3
+width = 250.0
+
+[node name="Label3D5" type="Label3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0.420489, 0.51882, -0.91399)
+text = "Instructions:
+- Sway hands to move
+- Look to steer
+- Look at your left hand for quests
+- Touch the quest item to proceed to next quest
+- Use [Trigger Button] to activate buttons
+- Use [Right Grip Button] to toggle flash light"
+font_size = 10
+horizontal_alignment = 0
+vertical_alignment = 0
+autowrap_mode = 3
+width = 200.0
+
+[node name="Label3D3" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.869374, 0.494154, 0, -0.494154, 0.869374, -0.0366226, 0.98102, 0.338988)
+text = "QUESTS"
+font_size = 10
+horizontal_alignment = 0
+vertical_alignment = 0
+autowrap_mode = 3
+width = 250.0
+
+[node name="Label3D4" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.869374, 0.494154, 0, -0.494154, 0.869374, 0.00143594, 0.674799, 0.513045)
+text = "QUEST AMOUNT"
+font_size = 10
+horizontal_alignment = 0
+vertical_alignment = 0
+autowrap_mode = 3
+width = 250.0
+
+[node name="RandomizeButtons" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.0869374, 0.0494154, 0, -0.0494154, 0.0869374, 0.176199, 0.719868, 0.405595)
+mesh = SubResource("BoxMesh_akwfq")
+material = SubResource("StandardMaterial3D_ygopn")
+
+[node name="Label3D2" type="Label3D" parent="RandomizeButtons"]
+transform = Transform3D(10, 0, 0, 0, 10, 8.52651e-14, 0, -8.52651e-14, 10, -1.08809, 1.26492, 0.711438)
+text = "Randomize"
+font_size = 10
+horizontal_alignment = 0
+vertical_alignment = 0
+autowrap_mode = 3
+width = 250.0
+
+[node name="CSGMesh3D" type="Area3D" parent="RandomizeButtons"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("2_vrwkr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RandomizeButtons/CSGMesh3D"]
+shape = SubResource("BoxShape3D_27dcw")
+
+[node name="SetTo5" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.0869374, 0.0494154, 0, -0.0494154, 0.0869374, 0.173342, 0.430591, 0.570021)
+mesh = SubResource("BoxMesh_akwfq")
+material = SubResource("StandardMaterial3D_ygopn")
+
+[node name="Label3D2" type="Label3D" parent="SetTo5"]
+transform = Transform3D(10, 0, 0, 0, 10, 8.52651e-14, 0, -8.52651e-14, 10, -0.330768, 1.26492, 0.711438)
+text = "5"
+font_size = 10
+horizontal_alignment = 0
+vertical_alignment = 0
+autowrap_mode = 3
+width = 250.0
+
+[node name="5" type="Area3D" parent="SetTo5"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("3_q5r3h")
+Amount = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SetTo5/5"]
+shape = SubResource("BoxShape3D_27dcw")
+
+[node name="SetTo10" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.0869374, 0.0494154, 0, -0.0494154, 0.0869374, 0.449618, 0.430591, 0.570021)
+mesh = SubResource("BoxMesh_akwfq")
+material = SubResource("StandardMaterial3D_ygopn")
+
+[node name="Label3D2" type="Label3D" parent="SetTo10"]
+transform = Transform3D(10, 0, 0, 0, 10, 4.76837e-07, 0, -4.76837e-07, 10, -0.330768, 1.26493, 0.711438)
+text = "10"
+font_size = 10
+horizontal_alignment = 0
+vertical_alignment = 0
+autowrap_mode = 3
+width = 250.0
+
+[node name="10" type="Area3D" parent="SetTo10"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("3_q5r3h")
+Amount = 10
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SetTo10/10"]
+shape = SubResource("BoxShape3D_27dcw")
+
+[node name="SetToAll" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.0869374, 0.0494154, 0, -0.0494154, 0.0869374, 0.705525, 0.430591, 0.570021)
+mesh = SubResource("BoxMesh_akwfq")
+material = SubResource("StandardMaterial3D_ygopn")
+
+[node name="Label3D2" type="Label3D" parent="SetToAll"]
+transform = Transform3D(10, 0, 0, 0, 10, 8.52651e-14, 0, -8.52651e-14, 10, -0.330768, 1.26492, 0.711438)
+text = "ALL"
+font_size = 10
+horizontal_alignment = 0
+vertical_alignment = 0
+autowrap_mode = 3
+width = 250.0
+
+[node name="All" type="Area3D" parent="SetToAll"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("3_q5r3h")
+Amount = -1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SetToAll/All"]
+shape = SubResource("BoxShape3D_27dcw")
+
+[node name="ToggleMusic" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.0869374, 0.0494154, 0, -0.0494154, 0.0869374, 1.2094, 0.274644, 0.658661)
+mesh = SubResource("BoxMesh_akwfq")
+material = SubResource("StandardMaterial3D_ygopn")
+
+[node name="Label3D2" type="Label3D" parent="ToggleMusic"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -1.37215, 1.6652, 0.711438)
+text = "Toggle Music"
+font_size = 10
+horizontal_alignment = 0
+vertical_alignment = 0
+autowrap_mode = 3
+width = 250.0
+
+[node name="ToggleMusic" type="Area3D" parent="ToggleMusic"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("4_7wcj5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ToggleMusic/ToggleMusic"]
+shape = SubResource("BoxShape3D_27dcw")
+
+[node name="EnvironmentLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.869374, 0.494154, 0, -0.494154, 0.869374, 0.978435, 1.06649, 0.290406)
+text = "Environment"
+font_size = 10
+horizontal_alignment = 0
+vertical_alignment = 0
+autowrap_mode = 3
+width = 250.0
+
+[node name="Morning" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.0869374, 0.0494154, 0, -0.0494154, 0.0869374, 1.34568, 0.883854, 0.312385)
+mesh = SubResource("BoxMesh_akwfq")
+material = SubResource("StandardMaterial3D_ygopn")
+
+[node name="MorningEnvironment" type="Area3D" parent="Morning"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("5_l8yea")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Morning/MorningEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00205803, 0.0153179, -0.00107956)
+shape = SubResource("BoxShape3D_27dcw")
+
+[node name="Label3D3" type="Label3D" parent="Morning/MorningEnvironment"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -1.28977, 0.150708, 0.71144)
+text = "Morning"
+font_size = 8
+horizontal_alignment = 2
+vertical_alignment = 0
+autowrap_mode = 3
+width = 250.0
+
+[node name="Morning2" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.0869374, 0.0494154, 0, -0.0494154, 0.0869374, 1.34568, 0.77789, 0.372615)
+mesh = SubResource("BoxMesh_akwfq")
+material = SubResource("StandardMaterial3D_ygopn")
+
+[node name="MorningEnvironment" type="Area3D" parent="Morning2"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("5_l8yea")
+index = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Morning2/MorningEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00205803, 0.0153179, -0.00107956)
+shape = SubResource("BoxShape3D_27dcw")
+
+[node name="Label3D3" type="Label3D" parent="Morning2/MorningEnvironment"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -1.15185, 0.150708, 0.71144)
+text = "Night"
+font_size = 8
+horizontal_alignment = 2
+vertical_alignment = 0
+autowrap_mode = 3
+width = 250.0
+
+[node name="Morning3" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.0869374, 0.0494154, 0, -0.0494154, 0.0869374, 1.34568, 0.676157, 0.430441)
+mesh = SubResource("BoxMesh_akwfq")
+material = SubResource("StandardMaterial3D_ygopn")
+
+[node name="MorningEnvironment" type="Area3D" parent="Morning3"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("5_l8yea")
+index = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Morning3/MorningEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00205803, 0.0153179, -0.00107956)
+shape = SubResource("BoxShape3D_27dcw")
+
+[node name="Label3D3" type="Label3D" parent="Morning3/MorningEnvironment"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -1.09065, 0.150708, 0.711441)
+text = "Night (Foggy)"
+font_size = 8
+horizontal_alignment = 2
+vertical_alignment = 0
+autowrap_mode = 3
+width = 250.0
+
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="."]
+mesh = SubResource("BoxMesh_nx74o")
+
+[connection signal="area_entered" from="RandomizeButtons/CSGMesh3D" to="." method="_on_csg_mesh_3d_area_entered"]
+[connection signal="area_entered" from="SetTo5/5" to="." method="_on__area5_entered"]
+[connection signal="area_entered" from="SetTo10/10" to="." method="_on__area10_entered"]
+[connection signal="area_entered" from="SetToAll/All" to="." method="_on_all_area_entered"]
+[connection signal="area_entered" from="ToggleMusic/ToggleMusic" to="." method="_on_all_area_entered"]

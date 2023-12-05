@@ -1,0 +1,69 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Walkvr"
+run/main_scene="res://Scene/Main.tscn"
+config/features=PackedStringArray("4.1", "Forward Plus")
+run/max_fps=90
+config/icon="res://icon.svg"
+
+[autoload]
+
+EventManager="*res://Scripts/Autoload/EventManager.gd"
+Game="*res://Scripts/Autoload/Game.gd"
+
+[display]
+
+window/vsync/vsync_mode=0
+
+[editor_plugins]
+
+enabled=PackedStringArray()
+
+[input]
+
+investigate={
+"deadzone": 0.5,
+"events": []
+}
+vibrate_left_hand={
+"deadzone": 0.5,
+"events": []
+}
+vibrate_right_hand={
+"deadzone": 0.5,
+"events": []
+}
+
+[layer_names]
+
+3d_physics/layer_1="Default"
+3d_physics/layer_2="Player"
+3d_physics/layer_3="Findme"
+3d_physics/layer_4="Button"
+
+[rendering]
+
+occlusion_culling/bvh_build_quality=0
+renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true
+lights_and_shadows/directional_shadow/soft_shadow_filter_quality=0
+lights_and_shadows/positional_shadow/soft_shadow_filter_quality=0
+global_illumination/gi/use_half_resolution=true
+shading/overrides/force_vertex_shading=true
+camera/depth_of_field/depth_of_field_bokeh_quality=0
+occlusion_culling/use_occlusion_culling=true
+
+[xr]
+
+openxr/enabled=true
+shaders/enabled=true

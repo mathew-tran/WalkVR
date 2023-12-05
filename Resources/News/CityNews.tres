@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="NewsSource" load_steps=2 format=3 uid="uid://bt42bnp1ryt7h"]
+
+[ext_resource type="Script" path="res://Resources/NewsResource.gd" id="1_iqduh"]
+
+[resource]
+script = ExtResource("1_iqduh")
+TextPath = "Frankenstein.txt"

@@ -1,0 +1,166 @@
+[gd_scene load_steps=13 format=3 uid="uid://c8eahit83bxh1"]
+
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_nqk0g"]
+[ext_resource type="PackedScene" uid="uid://6c33c61kid0x" path="res://Prefabs/Hand.tscn" id="2_kr2o5"]
+[ext_resource type="AudioStream" uid="uid://caiwykm80iwyj" path="res://audio/Caketown 1.mp3" id="3_1xxad"]
+[ext_resource type="Script" path="res://Scripts/Clock.gd" id="3_ds33p"]
+[ext_resource type="Script" path="res://Scripts/QuestHand.gd" id="3_h3ako"]
+[ext_resource type="AudioStream" uid="uid://ypxrxplpln7s" path="res://audio/phaseJump5.mp3" id="6_8kqjk"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7qs5a"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dcb6j"]
+albedo_color = Color(0.533333, 0.533333, 0.533333, 1)
+grow = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a15vi"]
+size = Vector3(0.2, 1, 0.2)
+
+[sub_resource type="Animation" id="Animation_cjjet"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Left/Hand:material:grow")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Left/Hand:material:grow_amount")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_kxf85"]
+resource_name = "questchange"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Left/Hand:material:grow")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Left/Hand:material:grow_amount")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.1, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1mfvh"]
+_data = {
+"RESET": SubResource("Animation_cjjet"),
+"questchange": SubResource("Animation_kxf85")
+}
+
+[node name="PlayerRigidBody" type="RigidBody3D"]
+collision_layer = 3
+physics_material_override = SubResource("PhysicsMaterial_7qs5a")
+max_contacts_reported = 2
+contact_monitor = true
+lock_rotation = true
+linear_damp = 5.28
+script = ExtResource("1_nqk0g")
+
+[node name="Player" type="XROrigin3D" parent="."]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="Player"]
+current = true
+
+[node name="Left" type="XRController3D" parent="."]
+tracker = &"left_hand"
+
+[node name="Hand" parent="Left" instance=ExtResource("2_kr2o5")]
+material = SubResource("StandardMaterial3D_dcb6j")
+
+[node name="Quest" type="Label3D" parent="Left/Hand"]
+transform = Transform3D(4.37114e-08, -3.82137e-15, -1, -8.74228e-08, -1, 0, -1, 8.74228e-08, -4.37114e-08, -0.508, -0.432536, 0.00731495)
+text = "I spy a cheese slice, beside the town sign, truly divine."
+font_size = 12
+vertical_alignment = 0
+autowrap_mode = 3
+width = 180.0
+script = ExtResource("3_h3ako")
+
+[node name="Right" type="XRController3D" parent="."]
+tracker = &"right_hand"
+
+[node name="Hand" parent="Right" instance=ExtResource("2_kr2o5")]
+
+[node name="Clock" type="Label3D" parent="Right/Hand"]
+transform = Transform3D(4.37114e-08, -3.82137e-15, 1, -8.74228e-08, -1, 0, 1, -8.74228e-08, -4.37114e-08, 0.508163, -0.000887141, -0.148313)
+text = "04:59PM"
+script = ExtResource("3_ds33p")
+
+[node name="Timer" type="Timer" parent="Right/Hand/Clock"]
+autostart = true
+
+[node name="Hint" type="Label3D" parent="Right/Hand"]
+transform = Transform3D(4.37114e-08, -3.82137e-15, 1, -8.74228e-08, -1, 0, 1, -8.74228e-08, -4.37114e-08, 0.508163, 0.14716, -0.00166784)
+text = "Hold Trigger / Grip Buttons for 3 seconds to reset"
+font_size = 10
+vertical_alignment = 0
+autowrap_mode = 3
+width = 180.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Right/Hand"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, -4.27386)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Right/Hand/OmniLight3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.427386)
+light_energy = 1.914
+spot_range = 1764.55
+spot_attenuation = 0.183011
+spot_angle = 20.37
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("BoxShape3D_a15vi")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_1xxad")
+
+[node name="Timer" type="Timer" parent="AudioStreamPlayer3D"]
+wait_time = 45.0
+one_shot = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+speed_scale = 5.0
+libraries = {
+"": SubResource("AnimationLibrary_1mfvh")
+}
+
+[node name="FlashClick" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_8kqjk")
+
+[connection signal="timeout" from="Right/Hand/Clock/Timer" to="Right/Hand/Clock" method="_on_timer_timeout"]
+[connection signal="finished" from="AudioStreamPlayer3D" to="." method="_on_audio_stream_player_3d_finished"]
+[connection signal="timeout" from="AudioStreamPlayer3D/Timer" to="." method="_on_timerAudio_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
